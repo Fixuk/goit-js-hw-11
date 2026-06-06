@@ -1,0 +1,13 @@
+/* empty css                      */import{a as g,S as y,i as l}from"./assets/vendor-BezXTN6Z.js";(function(){const r=document.createElement("link").relList;if(r&&r.supports&&r.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))a(e);new MutationObserver(e=>{for(const t of e)if(t.type==="childList")for(const s of t.addedNodes)s.tagName==="LINK"&&s.rel==="modulepreload"&&a(s)}).observe(document,{childList:!0,subtree:!0});function o(e){const t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?t.credentials="include":e.crossOrigin==="anonymous"?t.credentials="omit":t.credentials="same-origin",t}function a(e){if(e.ep)return;e.ep=!0;const t=o(e);fetch(e.href,t)}})();const h="YOUR_PIXABAY_API_KEY",b="https://pixabay.com/api/";function L(i){return g.get(b,{params:{key:h,q:i,image_type:"photo",orientation:"horizontal",safesearch:!0}})}const u=document.querySelector(".gallery"),d=document.querySelector(".loader");let n=null;function C(i){const r=i.map(({webformatURL:o,largeImageURL:a,tags:e,likes:t,views:s,comments:m,downloads:p})=>`
+      <li class="gallery-item">
+        <a class="gallery-link" href="${a}">
+          <img class="gallery-image" src="${o}" alt="${e}" loading="lazy" />
+          <div class="card-info">
+            <p class="card-info-item"><b>Likes</b><span>${t}</span></p>
+            <p class="card-info-item"><b>Views</b><span>${s}</span></p>
+            <p class="card-info-item"><b>Comments</b><span>${m}</span></p>
+            <p class="card-info-item"><b>Downloads</b><span>${p}</span></p>
+          </div>
+        </a>
+      </li>`).join("");u.insertAdjacentHTML("beforeend",r),n?n.refresh():n=new y(".gallery a",{captionsData:"alt",captionDelay:250,captionPosition:"bottom"})}function E(){u.innerHTML=""}function P(){d.classList.remove("hidden")}function c(){d.classList.add("hidden")}const f=document.querySelector(".form");f.addEventListener("submit",i=>{i.preventDefault();const r=f.elements["search-text"].value.trim();E(),P(),L(r).then(({data:o})=>{if(c(),o.hits.length===0){l.show({icon:"ico-error",iconColor:"#fff",title:"Error",titleColor:"#fff",message:"Sorry, there are no images matching your search query. Please try again!",messageColor:"#fff",backgroundColor:"#ef4040",position:"topRight",timeout:5e3});return}C(o.hits)}).catch(o=>{c(),l.show({icon:"ico-error",iconColor:"#fff",title:"Error",titleColor:"#fff",message:o.message,messageColor:"#fff",backgroundColor:"#ef4040",position:"topRight",timeout:5e3})})});
+//# sourceMappingURL=index.js.map
