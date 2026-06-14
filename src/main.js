@@ -15,13 +15,13 @@ form.addEventListener('submit', evt => {
 
   const query = form.elements['search-text'].value.trim();
 
+  if (!query) return;
+
   clearGallery();
   showLoader();
 
   getImagesByQuery(query)
-    .then(({ data }) => {
-      hideLoader();
-
+    .then(data => {
       if (data.hits.length === 0) {
         iziToast.show({
           icon: 'ico-error',
@@ -41,7 +41,6 @@ form.addEventListener('submit', evt => {
       createGallery(data.hits);
     })
     .catch(err => {
-      hideLoader();
       iziToast.show({
         icon: 'ico-error',
         iconColor: '#fff',
@@ -53,5 +52,8 @@ form.addEventListener('submit', evt => {
         position: 'topRight',
         timeout: 5000,
       });
+    })
+    .finally(() => {
+      hideLoader();
     });
 });
